@@ -10,7 +10,9 @@ if(isset($_POST['login']) && !empty($_POST['login'])){
         if(!filter_var($email, FILTER_VALIDADE_EMAIL)){
             $error = "Invalid format";
         }else {
-            # code...
+            if ($getFromU->login($email, $password) === false){
+                $error = "The email or password is incorret!";
+            }
         }
 
     }else{

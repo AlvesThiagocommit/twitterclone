@@ -16,11 +16,18 @@ class User{
     public function login($email, $password){
         $stmt = $this->pdo->prepare("SELECT `user_id` FROM `users` WHERE `email` = :email AND `password` :password");
         $stmt->bindParam(":user_id", $user_id, PDO::PARAM_STR);
-        $stmt->bindParam(":password", $password, PDO::PARAM_STR);
+        $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
         $stmt->execut();
 
         $user = $stmt->fetch(PDO::FETCH_OBJ);
         $count = $stmt->rowCount();
+
+        if($count > 0){
+            $_SESSION['user_id'] = $user->user_id;
+            header('Location: home.php');
+        }else {
+            return false;
+        }
     }
 }
 ?>
