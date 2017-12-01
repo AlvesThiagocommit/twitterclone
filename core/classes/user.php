@@ -15,9 +15,10 @@ class User{
 
     public function login($email, $password){
         $stmt = $this->pdo->prepare("SELECT `user_id` FROM `users` WHERE `email` = :email AND `password` :password");
-        $stmt->bindParam(":user_id", $user_id, PDO::PARAM_STR);
+        $stmt->bindParam(":email", $email, PDO::PARAM_STR);
         $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
-        $stmt->execut();
+        $stmt->execute();
+       
 
         $user = $stmt->fetch(PDO::FETCH_OBJ);
         $count = $stmt->rowCount();

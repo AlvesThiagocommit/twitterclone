@@ -1,23 +1,23 @@
 <?php
 if(isset($_POST['login']) && !empty($_POST['login'])){
-    $email    = $_POST['email'];
-    $password = $_POST['password'];
+   $email    = $_POST['email'];
+   $password = $_POST['password'];
 
-    if(!empty($email) or !empty($password)){
-        $email    = $getFromU->checkInput($email);
-        $password = $getFromU->checkInput($password);
+   if(!empty($email) or !empty($password)){
+       $email    = $getFromU->checkInput($email);
+       $password = $getFromU->checkInput($password);
 
-        if(!filter_var($email, FILTER_VALIDADE_EMAIL)){
-            $error = "Invalid format";
-        }else {
-            if ($getFromU->login($email, $password) === false){
-                $error = "The email or password is incorret!";
-            }
-        }
+       if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+           $error = "Invalid format";
+       }else{
+           if($getFromU->login($email, $password) === false){
+               $error = "The email or password is incorret!";
+           }
+       }
 
-    }else{
-        $error = "Please enter username and password";
-    }
+   }else{
+       $error = "Please enter username and password";
+   }
 }
 ?>
 <div class="login-div">
